@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="color-scheme" content="light dark">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content=" ">
+<title>Blog</title>
+<link rel="stylesheet" href="style.min.css">
+<!--<title>嵌入Markdown文件示例</title> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+</head>
+<body>
+<script>
+const darkModeMediaQuery = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)")
+const darkModeSwitcher = () => {
+    const isDarkMode = darkModeMediaQuery.matches
+    document.body.classList.toggle("dark" ,  isDarkMode)
+    document.body.classList.toggle("light", !isDarkMode)
+}
+if (darkModeMediaQuery) {
+    darkModeMediaQuery.addListener(darkModeSwitcher)
+    darkModeSwitcher()
+}
+</script>
+<nav>
+    <a
+    id="homepage"
+    class="icon-btn underline-side left"
+    href="../../index.html"
+    onclick="globalThis.__CurrentPage__=1">
+    <img src="image/homepage.svg" alt="home">
+    <span class="underline-target">Home</span>
+    </a>
+    <span>
+        <span
+        id="light-btn"
+        class="icon-btn"
+        role="button"
+        tabindex="0"
+        title="Light Mode"
+        onclick="document.body.classList.remove('dark'); document.body.classList.add('light')">
+            <img
+            src="image/sun.svg"
+            alt="Light Mode Icon">
+        </span>
+        <span
+        id="dark-btn"
+        class="icon-btn"
+        role="button"
+        tabindex="0"
+        title="Dark Mode"
+        onclick="document.body.classList.add('dark'); document.body.classList.remove('light')">
+            <img
+            src="image/moon.svg"
+            alt="Dark Mode Icon">
+        </span>
+    </span>
+</nav>
+
+<main id="script-main" data-is-root=true>
+ <h1>Blog</h1>
+
+    <div id="markdownContent"></div>
+    <script>
+        const markdownUrl = 'README.md';
+        const markdownContentDiv = document.getElementById('markdownContent');
+        fetch(markdownUrl)
+            .then(response => response.text())
+            .then(markdownText => {
+                const converter = new showdown.Converter();
+                const html = converter.makeHtml(markdownText);
+                markdownContentDiv.innerHTML = html;
+            });
+    </script>
+  
+    <h1>学习资料</h1>
+    <ul><li><strong>学习资料Web001</strong> <a href="https://deepinout.com/html/html-questions/407_html_how_to_include_markdown_md_files_inside_html_files.html">HTML 如何在HTML文件中嵌入Markdown (.md)文件</a>.</li></ul>
+    <ul><li><strong>学习资料Web002</strong> <a href="https://blog.51cto.com/u_16308706/11779350">如何在HTML中显示Markdown格式的文本</a>.</li></ul>
+    <ul><li><strong>学习资料Web003</strong> <a href="https://blog.51cto.com/u_16308706/11779350">如何在HTML中显示Markdown格式的文本</a>.</li></ul>
+</main>
+</body>
+</html>
